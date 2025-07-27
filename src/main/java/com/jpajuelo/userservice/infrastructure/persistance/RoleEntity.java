@@ -19,9 +19,10 @@ public class RoleEntity {
     private long RoleId;
     private String name;
     private Boolean isActivo = true;
-    private Set<User> users = new HashSet<>();
+    @ManyToMany(mappedBy = "roles")
+    private Set<UserEntity> users = new HashSet<>();
 
-    public RoleEntity(long roleId, String name, Set<User> users) {
+    public RoleEntity(long roleId, String name, Set<UserEntity> users) {
         RoleId = roleId;
         this.name = name;
         this.users = users;

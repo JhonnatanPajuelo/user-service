@@ -1,8 +1,6 @@
 package com.jpajuelo.userservice.infrastructure.persistance;
 
-import com.jpajuelo.userservice.domain.model.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,9 +18,15 @@ public class UserEntity {
     private String username;
     private String password;
     private Boolean isActivo = true;
-    private Set<Role> roles = new HashSet<>();
 
-    public UserEntity(long userId, String username, String password, Set<Role> roles) {
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<RoleEntity> roles = new HashSet<>();
+
+    public UserEntity(long userId, String username, String password, Set<RoleEntity> roles) {
         UserId = userId;
         this.username = username;
         this.password = password;
