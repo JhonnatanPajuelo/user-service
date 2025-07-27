@@ -1,12 +1,25 @@
 package com.jpajuelo.userservice.infrastructure.persistance;
 
+import com.jpajuelo.userservice.domain.model.Role;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "User")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserEntity {
-    //tst
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long UserId;
+    private String username;
+    private String password;
+    private Boolean isActivo = true;
+    private Set<Role> roles = new HashSet<>();
 }
