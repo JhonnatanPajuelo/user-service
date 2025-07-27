@@ -12,7 +12,6 @@ import java.util.Set;
 @Entity
 @Table(name = "User")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class UserEntity {
     @Id
@@ -22,4 +21,11 @@ public class UserEntity {
     private String password;
     private Boolean isActivo = true;
     private Set<Role> roles = new HashSet<>();
+
+    public UserEntity(long userId, String username, String password, Set<Role> roles) {
+        UserId = userId;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
 }
