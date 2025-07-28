@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,11 +15,11 @@ import java.util.Set;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long UserId;
+    private Long UserId;
     private String username;
     private String password;
     private Boolean isActivo = true;
-
+    private Date createdAt;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_roles",
@@ -26,10 +27,12 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
 
-    public UserEntity(long userId, String username, String password, Set<RoleEntity> roles) {
-        UserId = userId;
+    public UserEntity(Long userId, String username, String password,Set<RoleEntity> roles) {
+        this.UserId = userId;
         this.username = username;
         this.password = password;
+        this.createdAt = new Date();
+        this.isActivo = true;
         this.roles = roles;
     }
 }

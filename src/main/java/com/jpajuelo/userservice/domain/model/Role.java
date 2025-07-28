@@ -8,14 +8,13 @@ public class Role {
     private Long id;
     private String name;
     private Boolean isActivo = true;
-    private Set<User> users = new HashSet<>();
 
     public Role() {
     }
 
-    public Role(Long id, String name, Set<User> users) {
+    public Role(Long id, String name, Boolean isActivo) {
         this.id = id;
         this.name = name;
-        this.users = users;
+        this.isActivo = isActivo;
     }
 }
