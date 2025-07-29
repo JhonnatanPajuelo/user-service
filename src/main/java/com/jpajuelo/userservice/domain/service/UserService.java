@@ -26,7 +26,7 @@ public class UserService implements UserUseCase {
 
     @Override
     public User findById(Long id) {
-        return null;
+        return userRepository.findUserById(id);
     }
 
     @Override
