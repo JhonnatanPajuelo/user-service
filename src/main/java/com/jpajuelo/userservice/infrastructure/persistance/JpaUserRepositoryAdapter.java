@@ -25,7 +25,7 @@ public class JpaUserRepositoryAdapter implements UserRepositoryPort {
 
     @Override
     public User findUserById(Long idUser) {
-        return userRepository.findById(idUser).map(UserPersistenceMapper::toDomain).orElseThrow(()-> new EntityNotFoundException("User not found"));
+        return userRepository.findByUserIdAndIsActivoIsTrue(idUser).map(UserPersistenceMapper::toDomain).orElseThrow(()-> new EntityNotFoundException("User not found"));
     }
 
     @Override

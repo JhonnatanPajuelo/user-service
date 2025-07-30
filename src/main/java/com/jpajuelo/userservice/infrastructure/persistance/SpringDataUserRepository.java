@@ -7,6 +7,5 @@ import java.util.Optional;
 
 public interface SpringDataUserRepository extends JpaRepository<UserEntity, Long> {
     @EntityGraph(attributePaths = "roles")
-    Optional<UserEntity> findById(Long id);
-
+    Optional<UserEntity> findByUserIdAndIsActivoIsTrue(Long id);
 }

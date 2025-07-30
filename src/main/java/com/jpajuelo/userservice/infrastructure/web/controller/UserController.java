@@ -4,6 +4,8 @@ import com.jpajuelo.userservice.application.port.in.UserUseCase;
 import com.jpajuelo.userservice.domain.model.User;
 import com.jpajuelo.userservice.infrastructure.web.mapper.UserDtoMapper;
 import com.jpajuelo.userservice.infrastructure.web.request.UserRequest;
+import com.jpajuelo.userservice.infrastructure.web.request.UserUpdateRequest;
+import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -40,4 +42,19 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userUseCase.findById(idUser));
 
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Void> updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest request) {
+        User user = userDtoMapper.toDomainFromUpdateRequest(id, request);
+        userUseCase.updateInfoUser(id, user);
+        return ResponseEntity.noContent().build();
+    }
+
+
+
+    @PutMapping("/updateActive/{idUser}")
+    ResponseEntity<User> updateActiveUser(@PathVariable Long idUser) {
+        return ResponseEntity.status(HttpStatus.OK).body(userUseCase.updateActiveUser(idUser));
+    }
+
 }

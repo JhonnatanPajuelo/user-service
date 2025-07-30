@@ -20,6 +20,8 @@ public class UserPersistenceMapper {
                 user.getId(),
                 user.getUsername(),
                 user.getPassword(),
+                user.getCreatedAt(),
+                user.getIsActivo(),
                 roleEntities
         );
     }
@@ -33,6 +35,8 @@ public class UserPersistenceMapper {
                 entity.getUserId(),
                 entity.getUsername(),
                 entity.getPassword(),
+                entity.getIsActivo(),
+                entity.getCreatedAt(),
                 roles
         );
     }

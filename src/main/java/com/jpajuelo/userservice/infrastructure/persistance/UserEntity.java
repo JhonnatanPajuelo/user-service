@@ -15,7 +15,7 @@ import java.util.Set;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long UserId;
+    private Long userId;
     private String username;
     private String password;
     private Boolean isActivo = true;
@@ -27,12 +27,12 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
 
-    public UserEntity(Long userId, String username, String password,Set<RoleEntity> roles) {
-        this.UserId = userId;
+    public UserEntity(Long userId, String username, String password,Date date,Boolean active, Set<RoleEntity> roles) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
-        this.createdAt = new Date();
-        this.isActivo = true;
+        this.createdAt = date;
+        this.isActivo = active;
         this.roles = roles;
     }
 }

@@ -5,6 +5,7 @@ import com.jpajuelo.userservice.application.port.out.RoleRepositoryPort;
 import com.jpajuelo.userservice.application.port.out.UserRepositoryPort;
 import com.jpajuelo.userservice.domain.model.Role;
 import com.jpajuelo.userservice.domain.model.User;
+import com.jpajuelo.userservice.infrastructure.web.request.UserUpdateRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,17 +41,29 @@ public class UserService implements UserUseCase {
     }
 
     @Override
-    public User updateUser(Long idUser) {
-        return null;
+    public User updateInfoUser(Long IdUser, User request) {
+        User userInBD = userRepository.findUserById(IdUser);
+        applyPartialUpdate(userInBD, request);
+        return userRepository.saveUser(userInBD);
     }
+
 
     @Override
     public User updateActiveUser(Long idUser) {
-        return null;
+        User user = userRepository.findUserById(idUser);
+        user.setIsActivo(false);
+        return userRepository.saveUser(user);
     }
 
     @Override
     public void deleteUser(Long idUser) {
 
     }
+
+    public void applyPartialUpdate(User target, User source) {
+        if (source.getUsername() != null && !source.getUsername().isEmpty()) target.setUsername(source.getUsername());
+        if (source.getPassword() != null && !source.getPassword().isEmpty()) target.setPassword(source.getPassword());
+        // Si tuvieras más campos editables, agregas aquí
+    }
+
 }

@@ -17,12 +17,13 @@ public class User {
     private Set<Role> roles = new HashSet<>();
     private Date createdAt;
     public User() {}
-    public User(Long id, String username, String password,Set<Role> roles) {
+    public User(Long id, String username, String password,Boolean active,Date date,Set<Role> roles) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.roles = roles;
-        this.createdAt = new Date();
+        this.isActivo=active;
+        this.createdAt = date;
     }
 
 }
