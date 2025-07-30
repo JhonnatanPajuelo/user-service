@@ -15,7 +15,7 @@ public class User {
     private String password;
     private Boolean isActivo = true;
     private Set<Role> roles = new HashSet<>();
-    private Date createdAt;
+    private Date createdAt= new Date();
     public User() {}
     public User(Long id, String username, String password,Boolean active,Date date,Set<Role> roles) {
         this.id = id;

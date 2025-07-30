@@ -19,7 +19,7 @@ public class UserEntity {
     private String username;
     private String password;
     private Boolean isActivo = true;
-    private Date createdAt;
+    private Date createdAt=new Date();
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_roles",
