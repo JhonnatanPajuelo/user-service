@@ -9,6 +9,7 @@ import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 @Validated
+@Slf4j
 public class UserController {
     private UserUseCase userUseCase;
     private UserDtoMapper userDtoMapper;
@@ -44,10 +46,9 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest request) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest request) {
         User user = userDtoMapper.toDomainFromUpdateRequest(id, request);
-        userUseCase.updateInfoUser(id, user);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.OK).body(userUseCase.updateInfoUser(id, user));
     }
 
 
@@ -55,6 +56,13 @@ public class UserController {
     @PutMapping("/updateActive/{idUser}")
     ResponseEntity<User> updateActiveUser(@PathVariable Long idUser) {
         return ResponseEntity.status(HttpStatus.OK).body(userUseCase.updateActiveUser(idUser));
+    }
+
+    @DeleteMapping("/deleteUser/{idUser}")
+    ResponseEntity<Void> deleteUser(@PathVariable Long idUser) {
+        userUseCase.deleteUser(idUser);
+        log.info("El usuario con id {} fue eliminado", idUser);
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -1,5 +1,6 @@
-package com.jpajuelo.userservice.infrastructure.config;
+package com.jpajuelo.userservice.infrastructure.config.exception;
 
+import com.jpajuelo.userservice.domain.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -34,5 +35,15 @@ public class GlobalExceptionHandler {
         body.put("timestamp", LocalDateTime.now());
 
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("status", HttpStatus.NOT_FOUND.value());
+        body.put("message", ex.getMessage());
+        body.put("timestamp", LocalDateTime.now());
+
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 }

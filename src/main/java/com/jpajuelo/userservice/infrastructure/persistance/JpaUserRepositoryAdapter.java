@@ -2,12 +2,14 @@ package com.jpajuelo.userservice.infrastructure.persistance;
 
 import com.jpajuelo.userservice.application.port.out.UserRepositoryPort;
 import com.jpajuelo.userservice.domain.model.User;
+import com.jpajuelo.userservice.domain.exception.UserNotFoundException;
 import com.jpajuelo.userservice.infrastructure.persistance.mapper.UserPersistenceMapper;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public class JpaUserRepositoryAdapter implements UserRepositoryPort {
     private SpringDataUserRepository userRepository;
@@ -24,8 +26,8 @@ public class JpaUserRepositoryAdapter implements UserRepositoryPort {
     }
 
     @Override
-    public User findUserById(Long idUser) {
-        return userRepository.findByUserIdAndIsActivoIsTrue(idUser).map(UserPersistenceMapper::toDomain).orElseThrow(()-> new EntityNotFoundException("User not found"));
+    public Optional<User> findUserById(Long idUser) {
+        return userRepository.findByUserIdAndIsActivoIsTrue(idUser).map(UserPersistenceMapper::toDomain);
     }
 
     @Override
@@ -35,6 +37,10 @@ public class JpaUserRepositoryAdapter implements UserRepositoryPort {
 
     @Override
     public void deleteUserById(Long idUser) {
-
+        try{
+        userRepository.deleteById(idUser);}
+        catch(Exception e){
+            throw new UserNotFoundException("El usuario no fue encontrado");
+        }
     }
 }
