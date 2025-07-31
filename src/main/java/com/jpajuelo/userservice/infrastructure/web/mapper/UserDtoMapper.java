@@ -3,8 +3,6 @@ package com.jpajuelo.userservice.infrastructure.web.mapper;
 import com.jpajuelo.userservice.domain.model.User;
 import com.jpajuelo.userservice.infrastructure.web.request.UserRequest;
 import com.jpajuelo.userservice.infrastructure.web.request.UserUpdateRequest;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -4,8 +4,6 @@ import com.jpajuelo.userservice.domain.model.Role;
 import com.jpajuelo.userservice.domain.model.User;
 import com.jpajuelo.userservice.infrastructure.persistance.RoleEntity;
 import com.jpajuelo.userservice.infrastructure.persistance.UserEntity;
-import com.jpajuelo.userservice.infrastructure.web.request.UserRequest;
-import org.mapstruct.control.MappingControl;
 
 import java.util.Set;
 import java.util.stream.Collectors;
