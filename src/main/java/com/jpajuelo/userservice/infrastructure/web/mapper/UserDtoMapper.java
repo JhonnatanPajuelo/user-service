@@ -12,6 +12,7 @@ public class UserDtoMapper {
         User user = new User();
         user.setUsername(userRequest.getUsername());
         user.setPassword(userRequest.getPassword());
+        user.setCorreo(userRequest.getCorreo());
         // Los campos ignorados:
         // - id → no se establece (null)
         // - isActivo → ya es true por defecto en el modelo

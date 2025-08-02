@@ -17,8 +17,9 @@ public class User {
     private Set<Role> roles = new HashSet<>();
     private Date createdAt= new Date();
     private String profileImageName;
+    private String correo;
     public User() {}
-    public User(Long id, String username, String password,Boolean active,Date date,Set<Role> roles, String profileImageName) {
+    public User(Long id, String username, String password,Boolean active,Date date,Set<Role> roles, String profileImageName,String correo) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -26,6 +27,7 @@ public class User {
         this.isActivo=active;
         this.createdAt = date;
         this.profileImageName = profileImageName;
+        this.correo = correo;
     }
 
 }

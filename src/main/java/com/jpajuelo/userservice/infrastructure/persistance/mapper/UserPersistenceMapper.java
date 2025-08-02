@@ -21,7 +21,8 @@ public class UserPersistenceMapper {
                 user.getCreatedAt(),
                 user.getIsActivo(),
                 roleEntities,
-                user.getProfileImageName()
+                user.getProfileImageName(),
+                user.getCorreo()
         );
     }
 
@@ -37,7 +38,8 @@ public class UserPersistenceMapper {
                 entity.getIsActivo(),
                 entity.getCreatedAt(),
                 roles,
-                entity.getProfileImageName()
+                entity.getProfileImageName(),
+                entity.getCorreo()
         );
     }
 }

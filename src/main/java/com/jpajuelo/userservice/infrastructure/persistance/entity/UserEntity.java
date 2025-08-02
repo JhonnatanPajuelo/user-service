@@ -20,6 +20,7 @@ public class UserEntity {
     private String password;
     private Boolean isActivo = true;
     private Date createdAt=new Date();
+    private String correo;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_roles",
@@ -28,7 +29,7 @@ public class UserEntity {
     private Set<RoleEntity> roles = new HashSet<>();
     private String profileImageName;
 
-    public UserEntity(Long userId, String username, String password,Date date,Boolean active, Set<RoleEntity> roles, String profileImageName) {
+    public UserEntity(Long userId, String username, String password,Date date,Boolean active, Set<RoleEntity> roles, String profileImageName, String correo) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -36,5 +37,6 @@ public class UserEntity {
         this.isActivo = active;
         this.roles = roles;
         this.profileImageName = profileImageName;
+        this.correo = correo;
     }
 }

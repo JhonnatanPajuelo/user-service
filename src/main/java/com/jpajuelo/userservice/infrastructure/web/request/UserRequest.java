@@ -1,4 +1,5 @@
 package com.jpajuelo.userservice.infrastructure.web.request;
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -14,4 +15,9 @@ public class UserRequest {
     @NotBlank(message = "La contraseña no puede estar vacía")
     @Size(min = 6, message = "La contraseña debe tener al menos 6 caracteres")
     private String password;
+
+    @NotBlank(message = "El correo no puede estar vacía")
+    @Size(min = 6, message = "El correo debe tener al menos 6 caracteres")
+    @Email(message = "El correo debe tener un formato valido")
+    private String correo;
 }
