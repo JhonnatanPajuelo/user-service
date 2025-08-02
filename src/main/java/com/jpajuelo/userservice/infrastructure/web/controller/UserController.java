@@ -44,6 +44,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userUseCase.findById(idUser));
 
     }
+    @GetMapping()
+    public ResponseEntity<List<User>> findAllUser() {
+        return ResponseEntity.status(HttpStatus.OK).body(userUseCase.findAll());
+    }
 
     @PatchMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest request) {
@@ -57,6 +61,7 @@ public class UserController {
     ResponseEntity<User> updateActiveUser(@PathVariable Long idUser) {
         return ResponseEntity.status(HttpStatus.OK).body(userUseCase.updateActiveUser(idUser));
     }
+
 
     @DeleteMapping("/deleteUser/{idUser}")
     ResponseEntity<Void> deleteUser(@PathVariable Long idUser) {

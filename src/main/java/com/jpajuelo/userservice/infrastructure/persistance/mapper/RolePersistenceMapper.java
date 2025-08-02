@@ -2,7 +2,7 @@ package com.jpajuelo.userservice.infrastructure.persistance.mapper;
 
 
 import com.jpajuelo.userservice.domain.model.Role;
-import com.jpajuelo.userservice.infrastructure.persistance.RoleEntity;
+import com.jpajuelo.userservice.infrastructure.persistance.entity.RoleEntity;
 
 import java.util.HashSet;
 import java.util.Set;

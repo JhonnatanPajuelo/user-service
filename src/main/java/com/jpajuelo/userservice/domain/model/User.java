@@ -16,14 +16,16 @@ public class User {
     private Boolean isActivo = true;
     private Set<Role> roles = new HashSet<>();
     private Date createdAt= new Date();
+    private String profileImageName;
     public User() {}
-    public User(Long id, String username, String password,Boolean active,Date date,Set<Role> roles) {
+    public User(Long id, String username, String password,Boolean active,Date date,Set<Role> roles, String profileImageName) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.roles = roles;
         this.isActivo=active;
         this.createdAt = date;
+        this.profileImageName = profileImageName;
     }
 
 }

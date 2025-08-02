@@ -24,7 +24,7 @@ public class UserService implements UserUseCase {
     }
     @Override
     public List<User> findAll() {
-        return List.of();
+        return userRepository.findAllUsers();
     }
 
     @Override

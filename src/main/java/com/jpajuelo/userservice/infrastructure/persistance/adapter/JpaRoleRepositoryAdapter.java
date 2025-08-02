@@ -1,8 +1,9 @@
-package com.jpajuelo.userservice.infrastructure.persistance;
+package com.jpajuelo.userservice.infrastructure.persistance.adapter;
 
 import com.jpajuelo.userservice.application.port.out.RoleRepositoryPort;
 import com.jpajuelo.userservice.domain.model.Role;
 import com.jpajuelo.userservice.infrastructure.persistance.mapper.RolePersistenceMapper;
+import com.jpajuelo.userservice.infrastructure.persistance.repository.SpringDataRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

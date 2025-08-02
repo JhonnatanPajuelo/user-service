@@ -1,5 +1,7 @@
 package com.jpajuelo.userservice.infrastructure.config.exception;
 
+import com.jpajuelo.userservice.domain.exception.ImageStorageException;
+import com.jpajuelo.userservice.domain.exception.invalidImageException;
 import com.jpajuelo.userservice.domain.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,4 +48,23 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(invalidImageException.class)
+    public ResponseEntity<Object> handleInvalidImageContentType(invalidImageException ex) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("status", HttpStatus.BAD_REQUEST.value());
+        body.put("message", ex.getMessage());
+        body.put("timestamp", LocalDateTime.now());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(ImageStorageException.class)
+    public ResponseEntity<Object> handleImageStorage(ImageStorageException ex) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        body.put("message", ex.getMessage());
+        body.put("timestamp", LocalDateTime.now());
+
+        return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
 }

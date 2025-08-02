@@ -1,4 +1,4 @@
-package com.jpajuelo.userservice.infrastructure.persistance;
+package com.jpajuelo.userservice.infrastructure.persistance.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,13 +26,15 @@ public class UserEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
+    private String profileImageName;
 
-    public UserEntity(Long userId, String username, String password,Date date,Boolean active, Set<RoleEntity> roles) {
+    public UserEntity(Long userId, String username, String password,Date date,Boolean active, Set<RoleEntity> roles, String profileImageName) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.createdAt = date;
         this.isActivo = active;
         this.roles = roles;
+        this.profileImageName = profileImageName;
     }
 }

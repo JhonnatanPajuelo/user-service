@@ -1,14 +1,17 @@
-package com.jpajuelo.userservice.infrastructure.persistance;
+package com.jpajuelo.userservice.infrastructure.persistance.adapter;
 
 import com.jpajuelo.userservice.application.port.out.UserRepositoryPort;
 import com.jpajuelo.userservice.domain.model.User;
 import com.jpajuelo.userservice.domain.exception.UserNotFoundException;
+import com.jpajuelo.userservice.infrastructure.persistance.entity.UserEntity;
 import com.jpajuelo.userservice.infrastructure.persistance.mapper.UserPersistenceMapper;
+import com.jpajuelo.userservice.infrastructure.persistance.repository.SpringDataUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class JpaUserRepositoryAdapter implements UserRepositoryPort {
@@ -32,7 +35,7 @@ public class JpaUserRepositoryAdapter implements UserRepositoryPort {
 
     @Override
     public List<User> findAllUsers() {
-        return List.of();
+        return userRepository.findAllByIsActivoIsTrue().stream().map(UserPersistenceMapper::toDomain).collect(Collectors.toList());
     }
 
     @Override

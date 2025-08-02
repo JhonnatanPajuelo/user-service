@@ -2,8 +2,8 @@ package com.jpajuelo.userservice.infrastructure.persistance.mapper;
 
 import com.jpajuelo.userservice.domain.model.Role;
 import com.jpajuelo.userservice.domain.model.User;
-import com.jpajuelo.userservice.infrastructure.persistance.RoleEntity;
-import com.jpajuelo.userservice.infrastructure.persistance.UserEntity;
+import com.jpajuelo.userservice.infrastructure.persistance.entity.RoleEntity;
+import com.jpajuelo.userservice.infrastructure.persistance.entity.UserEntity;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -20,7 +20,8 @@ public class UserPersistenceMapper {
                 user.getPassword(),
                 user.getCreatedAt(),
                 user.getIsActivo(),
-                roleEntities
+                roleEntities,
+                user.getProfileImageName()
         );
     }
 
@@ -35,7 +36,8 @@ public class UserPersistenceMapper {
                 entity.getPassword(),
                 entity.getIsActivo(),
                 entity.getCreatedAt(),
-                roles
+                roles,
+                entity.getProfileImageName()
         );
     }
 }

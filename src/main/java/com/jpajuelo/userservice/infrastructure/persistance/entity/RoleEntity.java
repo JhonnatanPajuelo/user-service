@@ -1,9 +1,6 @@
-package com.jpajuelo.userservice.infrastructure.persistance;
+package com.jpajuelo.userservice.infrastructure.persistance.entity;
 
-import com.jpajuelo.userservice.domain.model.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,7 +21,7 @@ public class RoleEntity {
     private Set<UserEntity> users = new HashSet<>();
 
     public RoleEntity(long roleId, String name, Set<UserEntity> users) {
-        RoleId = roleId;
+        this.RoleId = roleId;
         this.name = name;
         this.users = users;
     }
