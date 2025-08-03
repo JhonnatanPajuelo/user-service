@@ -3,9 +3,11 @@ package com.jpajuelo.userservice.domain.service;
 import com.jpajuelo.userservice.application.port.in.UserUseCase;
 import com.jpajuelo.userservice.application.port.out.RoleRepositoryPort;
 import com.jpajuelo.userservice.application.port.out.UserRepositoryPort;
+import com.jpajuelo.userservice.domain.exception.DuplicateUserException;
 import com.jpajuelo.userservice.domain.exception.UserNotFoundException;
 import com.jpajuelo.userservice.domain.model.Role;
 import com.jpajuelo.userservice.domain.model.User;
+import com.jpajuelo.userservice.infrastructure.persistance.mapper.UserPersistenceMapper;
 import com.jpajuelo.userservice.infrastructure.web.request.UserUpdateRequest;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,12 @@ public class UserService implements UserUseCase {
 
     @Override
     public User createUser(User user) {
+        if(userRepository.findUserByUsername(user.getUsername()).isPresent()){
+            throw new DuplicateUserException("El nombre de usuario ya esta en uso");
+        }
+        if(userRepository.findUserByEmail(user.getCorreo()).isPresent()){
+            throw new DuplicateUserException("El email ingresado ya esta en uso");
+        }
         if (user.getRoles() == null || user.getRoles().isEmpty()) {
             Role basicRole = roleRepository.findByName("BASIC")
                     .orElseThrow(() -> new RuntimeException("Rol BASIC no encontrado"));

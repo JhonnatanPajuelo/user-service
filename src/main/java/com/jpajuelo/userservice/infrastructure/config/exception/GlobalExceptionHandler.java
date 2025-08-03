@@ -1,5 +1,6 @@
 package com.jpajuelo.userservice.infrastructure.config.exception;
 
+import com.jpajuelo.userservice.domain.exception.DuplicateUserException;
 import com.jpajuelo.userservice.domain.exception.ImageStorageException;
 import com.jpajuelo.userservice.domain.exception.invalidImageException;
 import com.jpajuelo.userservice.domain.exception.UserNotFoundException;
@@ -64,6 +65,16 @@ public class GlobalExceptionHandler {
         body.put("timestamp", LocalDateTime.now());
 
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(DuplicateUserException.class)
+    public ResponseEntity<Object> handleDuplicateUserException(DuplicateUserException ex) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("status", HttpStatus.CONFLICT.value());
+        body.put("message", ex.getMessage());
+        body.put("timestamp", LocalDateTime.now());
+
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
 

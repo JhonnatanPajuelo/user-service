@@ -34,6 +34,16 @@ public class JpaUserRepositoryAdapter implements UserRepositoryPort {
     }
 
     @Override
+    public Optional<User> findUserByUsername(String username) {
+        return userRepository.findByUsername(username).map(UserPersistenceMapper::toDomain);
+    }
+
+    @Override
+    public Optional<User> findUserByEmail(String email) {
+        return userRepository.findByCorreo(email).map(UserPersistenceMapper::toDomain);
+    }
+
+    @Override
     public List<User> findAllUsers() {
         return userRepository.findAllByIsActivoIsTrue().stream().map(UserPersistenceMapper::toDomain).collect(Collectors.toList());
     }
