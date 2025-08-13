@@ -1,9 +1,6 @@
 package com.jpajuelo.userservice.infrastructure.config.exception;
 
-import com.jpajuelo.userservice.domain.exception.DuplicateUserException;
-import com.jpajuelo.userservice.domain.exception.ImageStorageException;
-import com.jpajuelo.userservice.domain.exception.invalidImageException;
-import com.jpajuelo.userservice.domain.exception.UserNotFoundException;
+import com.jpajuelo.userservice.domain.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -75,6 +72,15 @@ public class GlobalExceptionHandler {
         body.put("timestamp", LocalDateTime.now());
 
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
+    }
+    @ExceptionHandler(UserInactiveException.class)
+    public ResponseEntity<Object> handleUserInactiveException(UserInactiveException ex) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("status", HttpStatus.FORBIDDEN.value()); // o 404 si decides ocultarlo
+        body.put("message", ex.getMessage());
+        body.put("timestamp", LocalDateTime.now());
+
+        return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
     }
 
 

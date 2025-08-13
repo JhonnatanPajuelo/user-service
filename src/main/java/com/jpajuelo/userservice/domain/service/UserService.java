@@ -4,6 +4,7 @@ import com.jpajuelo.userservice.application.port.in.UserUseCase;
 import com.jpajuelo.userservice.application.port.out.RoleRepositoryPort;
 import com.jpajuelo.userservice.application.port.out.UserRepositoryPort;
 import com.jpajuelo.userservice.domain.exception.DuplicateUserException;
+import com.jpajuelo.userservice.domain.exception.UserInactiveException;
 import com.jpajuelo.userservice.domain.exception.UserNotFoundException;
 import com.jpajuelo.userservice.domain.model.Role;
 import com.jpajuelo.userservice.domain.model.User;
@@ -73,11 +74,15 @@ public class UserService implements UserUseCase {
 
     @Override
     public User findByUsernameOrEmail(String userOrEmail) {
-        return userRepository.findUserByEmail(userOrEmail)
+        User user =userRepository.findUserByEmail(userOrEmail)
                 // Si no lo encuentra por email, intenta por username
                 .or(() -> userRepository.findUserByUsername(userOrEmail))
                 // Si no se encuentra en ninguno de los dos, lanza excepción
                 .orElseThrow(() -> new UserNotFoundException("El usuario no existe"));
+        if(user.getIsActivo()==false){
+            throw new UserInactiveException("El usuario " + user.getUsername()+ " no esta en uso");
+        }
+        return user;
     }
 
     public void applyPartialUpdate(User target, User source) {
