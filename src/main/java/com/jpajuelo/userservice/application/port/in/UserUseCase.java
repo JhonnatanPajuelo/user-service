@@ -12,4 +12,5 @@ public interface UserUseCase {
  User updateInfoUser(Long idUser, User user);
  User updateActiveUser(Long idUser);
  void deleteUser(Long idUser);
+ User findByUsernameOrEmail(String userOrEmail);
 }

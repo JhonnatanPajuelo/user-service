@@ -71,6 +71,15 @@ public class UserService implements UserUseCase {
         userRepository.deleteUserById(idUser);
     }
 
+    @Override
+    public User findByUsernameOrEmail(String userOrEmail) {
+        return userRepository.findUserByEmail(userOrEmail)
+                // Si no lo encuentra por email, intenta por username
+                .or(() -> userRepository.findUserByUsername(userOrEmail))
+                // Si no se encuentra en ninguno de los dos, lanza excepción
+                .orElseThrow(() -> new UserNotFoundException("El usuario no existe"));
+    }
+
     public void applyPartialUpdate(User target, User source) {
         if (source.getUsername() != null && !source.getUsername().isEmpty()) target.setUsername(source.getUsername());
         if (source.getPassword() != null && !source.getPassword().isEmpty()) target.setPassword(source.getPassword());

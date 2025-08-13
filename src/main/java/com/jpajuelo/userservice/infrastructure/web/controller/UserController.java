@@ -69,5 +69,9 @@ public class UserController {
         log.info("El usuario con id {} fue eliminado", idUser);
         return ResponseEntity.noContent().build();
     }
-
+    @GetMapping("/find-by-identifier")
+    public ResponseEntity<User> findByUsernameOrEmail(
+                @RequestParam String identifier) {
+        return ResponseEntity.ok(userUseCase.findByUsernameOrEmail(identifier));
+    }
 }
