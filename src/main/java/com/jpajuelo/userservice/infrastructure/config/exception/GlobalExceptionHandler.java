@@ -1,6 +1,7 @@
 package com.jpajuelo.userservice.infrastructure.config.exception;
 
 import com.jpajuelo.userservice.domain.exception.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,7 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -66,6 +67,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DuplicateUserException.class)
     public ResponseEntity<Object> handleDuplicateUserException(DuplicateUserException ex) {
+        ex.printStackTrace();
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("status", HttpStatus.CONFLICT.value());
         body.put("message", ex.getMessage());
@@ -75,13 +77,18 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(UserInactiveException.class)
     public ResponseEntity<Object> handleUserInactiveException(UserInactiveException ex) {
+        //ex.printStackTrace(); // imprime la traza completa en consola
+        // o mejor:
+        log.error("Usuario inactivo detectado", ex);
+
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("status", HttpStatus.FORBIDDEN.value()); // o 404 si decides ocultarlo
+        body.put("status", HttpStatus.FORBIDDEN.value());
         body.put("message", ex.getMessage());
         body.put("timestamp", LocalDateTime.now());
 
         return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
     }
+
 
 
 }
